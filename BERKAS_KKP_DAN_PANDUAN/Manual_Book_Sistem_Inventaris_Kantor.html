@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Book - Sistem Informasi Manajemen Inventaris & Fasilitas Kantor</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --secondary: #0ea5e9;
+            --navy: #0f172a;
+            --slate: #334155;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.65;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Cover Header */
+        .cover-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 48px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--primary);
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.3);
+            color: #93c5fd;
+            border: 1px solid rgba(147, 197, 253, 0.3);
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .cover-title {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .cover-desc {
+            font-size: 15px;
+            color: #cbd5e1;
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .cover-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 13px;
+            color: #94a3b8;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .cover-meta strong {
+            color: #f8fafc;
+        }
+
+        /* Layout Grid */
+        .doc-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 36px;
+            align-items: start;
+        }
+
+        /* Sticky TOC */
+        .toc-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: sticky;
+            top: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+        }
+
+        .toc-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 8px;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            display: block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+            padding-left: 12px;
+        }
+
+        .toc-list .toc-sub {
+            padding-left: 16px;
+            font-size: 12.5px;
+        }
+
+        /* Content Area */
+        .doc-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .chapter {
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chapter:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        h2.chapter-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2.chapter-title::before {
+            content: "";
+            display: inline-block;
+            width: 5px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        h3.section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--slate);
+            margin: 28px 0 14px;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: #334155;
+        }
+
+        /* Screenshots Figure */
+        .screenshot-figure {
+            margin: 22px 0 30px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f1f5f9;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .screenshot-figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .screenshot-caption {
+            padding: 10px 16px;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            background: #ffffff;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .screenshot-caption strong {
+            color: var(--navy);
+        }
+
+        /* Step List */
+        .step-list {
+            list-style: none;
+            margin: 16px 0 24px;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 36px;
+            margin-bottom: 14px;
+            font-size: 14.5px;
+        }
+
+        .step-list li::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Alerts & Callouts */
+        .callout {
+            border-left: 4px solid var(--primary);
+            background: var(--primary-light);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #1e3a8a;
+        }
+
+        .callout.warning {
+            border-left-color: var(--amber);
+            background: #fffbeb;
+            color: #92400e;
+        }
+
+        .callout.success {
+            border-left-color: var(--emerald);
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14.5px;
+        }
+
+        /* Tables */
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13.5px;
+        }
+
+        .doc-table th {
+            background: #f8fafc;
+            color: var(--navy);
+            text-align: left;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            font-weight: 700;
+        }
+
+        .doc-table td {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            color: var(--slate);
+        }
+
+        .doc-table tr:nth-child(even) {
+            background-color: #fdfdfd;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-green { background: #d1fae5; color: #065f46; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+
+        @media (max-width: 900px) {
+            .doc-layout {
+                grid-template-columns: 1fr;
+            }
+            .toc-card {
+                position: static;
+            }
+        }
+
+        @media print {
+            body { background: #ffffff; font-size: 12pt; }
+            .cover-box { background: #0f172a !important; -webkit-print-color-adjust: exact; }
+            .toc-card { display: none; }
+            .doc-layout { display: block; }
+            .doc-content { border: none; box-shadow: none; padding: 0; }
+            .chapter { page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- COVER HEADER -->
+        <div class="cover-box">
+            <span class="cover-badge">Dokumentasi Teknis & Operasional KKP</span>
+            <h1 class="cover-title">BUKU PANDUAN PENGGUNA (MANUAL BOOK)<br>SISTEM MANAJEMEN INVENTARIS & FASILITAS RUANGAN KANTOR</h1>
+            <p class="cover-desc">
+                Panduan komprehensif seluruh fitur aplikasi berbasis web: Dashboard Statistik, Pengelolaan Master Data Barang, Peminjaman Aset, Booking Ruang Rapat Anti-Bentrok, Audit Stock Opname, Pelaporan Ekspor Excel, dan Skema Hak Akses Berbasis Grup Divisi (Group RBAC) pada Jaringan Lokal Kantor (On-Premise LAN).
+            </p>
+            <div class="cover-meta">
+                <div>Versi Aplikasi: <strong>2.0 (Web Edition)</strong></div>
+                <div>Arsitektur: <strong>On-Premise Local LAN Server</strong></div>
+                <div>Metode RBAC: <strong>Grup Divisi & Level Hak Akses</strong></div>
+                <div>Tahun Rilis: <strong>2026</strong></div>
+            </div>
+        </div>
+
+        <div class="doc-layout">
+            <!-- SIDEBAR TABLE OF CONTENTS -->
+            <aside class="toc-card">
+                <div class="toc-title">Daftar Isi Panduan</div>
+                <ul class="toc-list">
+                    <li><a href="#bab1">BAB I: Gambaran Umum & Akses LAN</a></li>
+                    <li><a href="#bab2">BAB II: Hak Akses Berbasis Grup Divisi (Group RBAC)</a></li>
+                        <ul class="toc-list toc-sub">
+                            <li><a href="#bab2-list">2.1 List Akses Divisi</a></li>
+                            <li><a href="#bab2-matrix">2.2 Form Matrix Hak Akses</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#bab3">BAB III: Manajemen Pengguna (User)</a>
+                        <ul class="toc-list toc-sub">
+                            <li><a href="#bab3-list">3.1 Daftar Pengguna</a></li>
+                            <li><a href="#bab3-tambah">3.2 Tambah User & Pewarisan Grup</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#bab4">BAB IV: Dashboard Monitoring</a></li>
+                    <li><a href="#bab5">BAB V: Pengelolaan Master Data</a>
+                        <ul class="toc-list toc-sub">
+                            <li><a href="#bab5-aset">5.1 Data Aset & Barcode</a></li>
+                            <li><a href="#bab5-kategori">5.2 Kategori Barang</a></li>
+                            <li><a href="#bab5-ruang">5.3 Ruang Rapat</a></li>
+                            <li><a href="#bab5-lokasi">5.4 Lokasi & Gedung</a></li>
+                            <li><a href="#bab5-status">5.5 Status Inventaris</a></li>
+                            <li><a href="#bab5-supplier">5.6 Supplier / Vendor</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#bab6">BAB VI: Operasional & Transaksi</a>
+                        <ul class="toc-list toc-sub">
+                            <li><a href="#bab6-pinjam">6.1 Peminjaman Aset</a></li>
+                            <li><a href="#bab6-outbound">6.2 Barang Keluar (Habis Pakai)</a></li>
+                            <li><a href="#bab6-booking">6.3 Booking Ruang Rapat</a></li>
+                            <li><a href="#bab6-opname">6.4 Audit Stock Opname</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#bab7">BAB VII: Laporan, Excel & Cetak</a></li>
+                    <li><a href="#bab8">BAB VIII: Tanya Jawab (FAQ)</a></li>
+                </ul>
+            </aside>
+
+            <!-- MAIN DOCUMENT CONTENT -->
+            <main class="doc-content">
+
+                <!-- BAB I -->
+                <section class="chapter" id="bab1">
+                    <h2 class="chapter-title">BAB I: Gambaran Umum & Cara Akses di Kantor</h2>
+                    <p>
+                        Aplikasi Sistem Informasi Manajemen Inventaris & Ruangan Kantor merupakan sistem terpusat berbasis web yang di-hosting langsung pada server lokal di dalam lingkungan kantor (On-Premise LAN). Seluruh staf dapat mengakses aplikasi ini menggunakan web browser standar (Google Chrome, Microsoft Edge, Mozilla Firefox) tanpa perlu menginstal aplikasi tambahan di setiap komputer klien.
+                    </p>
+
+                    <div class="callout">
+                        <strong>Alamat Akses di Jaringan Kantor (LAN):</strong>
+                        Buka browser pada komputer kerja Anda yang terhubung ke WiFi atau kabel LAN kantor, lalu ketikkan salah satu alamat IP server kantor berikut:<br>
+                        👉 <code>http://192.168.1.15:3000</code> atau <code>http://localhost:3000</code> (pada komputer server).
+                    </div>
+
+                    <h3 class="section-title">Fitur-Fitur Kunci Sistem</h3>
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Kategori Modul</th>
+                                <th>Fungsi Utama</th>
+                                <th>Pengguna Utama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Hak Akses Grup</strong></td>
+                                <td>Pemberian hak akses per divisi & level jabatan terpusat</td>
+                                <td>Administrator IT</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Master Data Aset</strong></td>
+                                <td>Katalog inventaris dengan barcode, spesifikasi, dan lokasi fisik</td>
+                                <td>Staff GA & Gudang</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sirkulasi Barang</strong></td>
+                                <td>Pencatatan peminjaman, pengembalian, dan barang keluar habis pakai</td>
+                                <td>Seluruh Karyawan / GA</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Booking Ruangan</strong></td>
+                                <td>Reservasi ruang meeting kantor dengan pencegahan tabrakan jam</td>
+                                <td>Seluruh Divisi</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stock Opname</strong></td>
+                                <td>Rekonsiliasi berkala stok fisik riil dengan catatan sistem</td>
+                                <td>Petugas Audit / GA</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pelaporan & Cetak</strong></td>
+                                <td>Ekspor Microsoft Excel dan pratinjau cetak ber-kop surat resmi</td>
+                                <td>Pimpinan & GA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- BAB II -->
+                <section class="chapter" id="bab2">
+                    <h2 class="chapter-title">BAB II: Hak Akses Berbasis Grup Divisi (Group RBAC)</h2>
+                    <p>
+                        Sistem menerapkan konsep <strong>Group Permission</strong> pada level divisi kerja. Anda tidak perlu menyetel izin menu satu per satu untuk setiap pegawai. Pengaturan dilakukan sekali saja pada grup Divisi, lalu setiap pengguna yang dibuat otomatis mewarisi seluruh hak akses divisinya.
+                    </p>
+
+                    <h3 class="section-title" id="bab2-list">2.1 Melihat & Mengelola List Akses Divisi</h3>
+                    <p>
+                        Navigasikan ke menu sidebar <strong>Akses & Pengguna &rarr; List Akses (Divisi)</strong>. Halaman ini menyajikan tabel seluruh divisi kantor beserta level jabatannya.
+                    </p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/19_list_akses_divisi.png" alt="Tampilan List Akses Divisi">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 2.1:</strong> Layar List Akses Divisi dilengkapi tombol Detail (teal) dan Delete (merah), pencarian, dan pagination.
+                        </div>
+                    </div>
+
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Pencarian Cepat:</strong> Masukkan kata kunci pada kotak <code>Search</code> di sudut kanan atas untuk mencari divisi tertentu (contoh: <em>Operasional</em> atau <em>IT</em>).</li>
+                        <li data-step="2"><strong>Mengatur Jumlah Baris:</strong> Gunakan dropdown <code>entries per page</code> untuk menampilkan 10, 25, atau 50 divisi per halaman.</li>
+                        <li data-step="3"><strong>Membuka Pengaturan Hak Akses:</strong> Klik tombol <strong>Detail</strong> berwarna teal pada baris divisi yang ingin Anda konfigurasi hak aksesnya.</li>
+                        <li data-step="4"><strong>Menambah Grup Baru:</strong> Klik tombol <strong>+ Tambah Akses</strong> di atas tabel untuk mendefinisikan divisi kerja baru.</li>
+                    </ul>
+
+                    <h3 class="section-title" id="bab2-matrix">2.2 Mengatur Form Matrix Hak Akses (2 Kolom Menu & Submenu)</h3>
+                    <p>
+                        Ketika tombol <strong>Detail</strong> diklik, sistem berpindah ke layar pengaturan matriks perizinan dua kolom.
+                    </p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/20_detail_permission_matrix.png" alt="Form Matrix Hak Akses 2 Kolom">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 2.2:</strong> Form Pengaturan Hak Akses: Kolom Kiri (Menu Main) dan Kolom Kanan (Submenu terkelompok).
+                        </div>
+                    </div>
+
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Kolom Kiri (Menu Main):</strong> Centang modul utama yang boleh dilihat oleh divisi tersebut (Dashboard, Master Data, Operasional, Laporan, Akses).</li>
+                        <li data-step="2"><strong>Kolom Kanan (Submenu):</strong> Centang fitur-fitur spesifik per kelompok kategori (Data Aset, Ruang Rapat, Peminjaman, Booking, List User, dll.).</li>
+                        <li data-step="3"><strong>Tombol Bantuan:</strong> Klik <code>Pilih Semua</code> untuk mencentang seluruh perizinan sekaligus (mode Administrator), atau <code>Batal Semua</code> untuk mengosongkan centang.</li>
+                        <li data-step="4"><strong>Menyimpan Pengaturan:</strong> Klik tombol <strong>💾 Simpan Pengaturan Akses</strong>. Seluruh user yang berada di divisi tersebut akan langsung terupdate hak aksesnya secara real-time.</li>
+                    </ul>
+                </section>
+
+                <!-- BAB III -->
+                <section class="chapter" id="bab3">
+                    <h2 class="chapter-title">BAB III: Manajemen Pengguna & Penugasan Divisi</h2>
+                    <p>
+                        Modul ini digunakan oleh Administrator untuk mengelola akun pegawai kantor yang berhak login ke dalam sistem aplikasi.
+                    </p>
+
+                    <h3 class="section-title" id="bab3-list">3.1 Daftar Pengguna Terdaftar (List User)</h3>
+                    <p>
+                        Buka menu sidebar <strong>Akses & Pengguna &rarr; List User</strong>. Sistem menampilkan daftar nama pegawai, username, divisi yang ditugaskan, level, dan status akun aktif.
+                    </p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/17_manajemen_user.png" alt="Tabel Daftar Pengguna">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 3.1:</strong> Layar Manajemen Pengguna dengan informasi grup divisi dan tombol aksi Edit & Hapus.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" id="bab3-tambah">3.2 Menambah User Baru (Pewarisan Grup Divisi Otomatis)</h3>
+                    <p>
+                        Klik tombol <strong>+ Tambah User Baru</strong> di pojok kanan atas tabel user untuk memunculkan formulir registrasi.
+                    </p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/18_modal_tambah_user.png" alt="Modal Tambah Pengguna Baru">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 3.2:</strong> Dialog Tambah User Baru dengan dropdown penugasan grup divisi kerja.
+                        </div>
+                    </div>
+
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Username:</strong> Masukkan ID login pengguna tanpa spasi (contoh: <code>andi_it</code> atau <code>staff_ga</code>).</li>
+                        <li data-step="2"><strong>Nama Lengkap Pegawai:</strong> Masukkan nama lengkap pegawai beserta gelar (contoh: <code>Andi Pratama, S.Kom</code>).</li>
+                        <li data-step="3"><strong>Password:</strong> Masukkan kata sandi awal (minimal 6 karakter).</li>
+                        <li data-step="4"><strong>Pilih Divisi & Level Hak Akses:</strong> Pilih grup kerja dari dropdown. Pegawai akan langsung mewarisi seluruh izin akses menu dari grup ini.</li>
+                        <li data-step="5"><strong>Status Akun:</strong> Pastikan memilih <code>Aktif</code> agar pengguna dapat langsung login.</li>
+                        <li data-step="6">Klik <strong>Simpan Data User</strong>.</li>
+                    </ul>
+                </section>
+
+                <!-- BAB IV -->
+                <section class="chapter" id="bab4">
+                    <h2 class="chapter-title">BAB IV: Dashboard Utama & Monitoring Real-Time</h2>
+                    <p>
+                        Dashboard merupakan halaman beranda yang menyajikan ringkasan visual status operasional inventaris dan agenda rapat secara real-time.
+                    </p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/01_dashboard.png" alt="Tampilan Dashboard Utama">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 4.1:</strong> Dashboard Utama menampilkan 4 kartu KPI, tabel sirkulasi terbaru, agenda rapat hari ini, dan diagram kategori.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title">Komponen Penting Dashboard</h3>
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Kartu KPI Atas:</strong>
+                            <br>&bull; <span class="badge badge-blue">Jenis Aset Terdaftar</span>: Jumlah ragam barang yang tercatat di inventaris.
+                            <br>&bull; <span class="badge badge-green">Total Fisik Seluruh Stok</span>: Akumulasi seluruh unit fisik barang di gudang/kantor.
+                            <br>&bull; <span class="badge badge-amber">Aset Sedang Dipinjam</span>: Jumlah unit barang yang saat ini berada di luar gudang.
+                            <br>&bull; <span class="badge badge-blue">Rapat Hari Ini</span>: Jumlah reservasi ruang rapat yang diagendakan pada hari ini.
+                        </li>
+                        <li data-step="2"><strong>Tabel Sirkulasi Peminjaman Terbaru:</strong> Menampilkan 5 transaksi peminjaman aset terakhir untuk pemantauan cepat oleh petugas GA.</li>
+                        <li data-step="3"><strong>Widget Agenda Ruang Rapat:</strong> Memberikan informasi ruang rapat apa yang sedang dipakai, jam pelaksanaan, dan siapa PIC yang bertanggung jawab.</li>
+                    </ul>
+                </section>
+
+                <!-- BAB V -->
+                <section class="chapter" id="bab5">
+                    <h2 class="chapter-title">BAB V: Pengelolaan Master Data Inventaris</h2>
+                    <p>
+                        Master data merupakan fondasi seluruh data inventaris kantor. Modul ini mencakup data barang, klasifikasi kategori, ruangan pertemuan, gudang penyimpanan, status barang, dan rekanan supplier.
+                    </p>
+
+                    <h3 class="section-title" id="bab5-aset">5.1 Data Aset (Barang) & Kode Barcode</h3>
+                    <p>Buka menu <strong>Master Data &rarr; Data Aset (Barang)</strong> untuk melihat seluruh katalog inventaris kantor.</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/02_data_aset.png" alt="Katalog Data Aset">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 5.1:</strong> Tabel Master Data Aset lengkap dengan kode barcode, stok fisik, dan lokasi penyimpanan.
+                        </div>
+                    </div>
+
+                    <p>Untuk mendaftarkan aset baru, klik tombol <strong>+ Tambah Aset</strong> pada sudut kanan atas:</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/03_modal_tambah_aset.png" alt="Form Tambah Aset Baru">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 5.2:</strong> Form Input Aset Baru mencakup spesifikasi teknis, barcode, dan kuantitas unit.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" id="bab5-kategori">5.2 Kategori Barang (Aset Tetap vs Habis Pakai)</h3>
+                    <p>Menu ini memisahkan inventaris kantor menjadi dua klasifikasi penting: <strong>ASET TETAP</strong> (peralatan kerja yang tidak habis dipakai seperti laptop, proyektor, kursi) dan <strong>CONSUMABLE</strong> (barang habis pakai seperti kertas HVS, pulpen, tinta printer).</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/04_kategori_barang.png" alt="Tabel Kategori Barang">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 5.3:</strong> Master Kategori Barang dengan label tipe klasifikasi.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" id="bab5-ruang">5.3 Ruang Pertemuan / Rapat</h3>
+                    <p>Daftar seluruh ruangan meeting kantor yang tersedia untuk dipakai reservasi agenda kerja.</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/05_ruang_rapat.png" alt="Tabel Ruang Rapat">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 5.4:</strong> Master Ruang Rapat kantor beserta keterangan fasilitas pendukung.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" id="bab5-lokasi">5.4 Lokasi Penyimpanan & Gudang</h3>
+                    <p>Mendata letak fisik penyimpanan barang (misal: Lantai 1, Gudang Utama, Ruang Server, Ruang GA).</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/06_lokasi_penyimpanan.png" alt="Tabel Lokasi Penyimpanan">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 5.5:</strong> Master Lokasi Penyimpanan inventaris kantor.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" id="bab5-status">5.5 Status Inventaris Ketersediaan</h3>
+                    <p>Label status barang untuk menentukan apakah suatu barang boleh dipinjam atau tidak (contoh: <em>Tersedia, Dipinjam, Dalam Perbaikan, Rusak / Di-Afkir</em>).</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/07_status_inventaris.png" alt="Tabel Status Inventaris">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 5.6:</strong> Master Status Ketersediaan Barang.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" id="bab5-supplier">5.6 Supplier / Rekanan Vendor</h3>
+                    <p>Mencatat kontak rekanan resmi penyedia pengadaan barang dan layanan perbaikan/garansi aset kantor.</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/08_supplier_vendor.png" alt="Tabel Supplier Vendor">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 5.7:</strong> Master Rekanan Supplier / Vendor resmi kantor.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BAB VI -->
+                <section class="chapter" id="bab6">
+                    <h2 class="chapter-title">BAB VI: Operasional & Transaksi Sirkulasi</h2>
+
+                    <h3 class="section-title" id="bab6-pinjam">6.1 Peminjaman Aset Kantor & Pengembalian</h3>
+                    <p>Menu ini digunakan ketika staf meminjam peralatan kantor (misal: Laptop cadangan, Proyektor, Kamera dokumentasi, Kabel konverter).</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/09_peminjaman_aset.png" alt="Tabel Peminjaman Aset">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 6.1:</strong> Daftar Transaksi Peminjaman Aset dengan indikator status pengembalian.
+                        </div>
+                    </div>
+
+                    <p>Untuk mencatat peminjaman baru, klik tombol <strong>+ Pinjam Aset</strong>:</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/10_modal_peminjaman.png" alt="Form Peminjaman Aset">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 6.2:</strong> Form Peminjaman Barang: Wajib mengisi PIC, Divisi, dan estimasi tanggal kembali.
+                        </div>
+                    </div>
+
+                    <div class="callout success">
+                        <strong>Otomatisasi Stok pada Peminjaman:</strong>
+                        Saat peminjaman disimpan, stok fisik barang di sistem otomatis berkurang sesuai jumlah unit yang dipinjam. Ketika staf mengembalikan barang dan petugas mengklik tombol <code>Proses Kembali</code>, stok barang otomatis bertambah kembali.
+                    </div>
+
+                    <h3 class="section-title" id="bab6-outbound">6.2 Barang Keluar (Habis Pakai / ATK)</h3>
+                    <p>Menu ini khusus untuk mendata barang-barang tipe consumable (ATK, spidol, kertas, baterai) yang dikeluarkan dari gudang untuk kebutuhan rutin divisi dan tidak perlu dikembalikan.</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/11_barang_keluar.png" alt="Tabel Barang Keluar">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 6.3:</strong> Log Pengeluaran Barang Habis Pakai (Outbound).
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" id="bab6-booking">6.3 Booking Ruang Rapat (Anti Bentrok Jadwal)</h3>
+                    <p>Fasilitas reservasi ruang rapat untuk seluruh staf kantor dengan teknologi validasi otomatis tabrakan jam pertemuan.</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/12_booking_ruangan.png" alt="Jadwal Booking Ruang Rapat">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 6.4:</strong> Agenda Reservasi Ruang Rapat Kantor.
+                        </div>
+                    </div>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/13_modal_booking.png" alt="Form Reservasi Ruangan">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 6.5:</strong> Dialog Reservasi Ruang Rapat: Sistem langsung memeriksa ketersediaan jam secara real-time.
+                        </div>
+                    </div>
+
+                    <div class="callout warning">
+                        <strong>Live Collision Detection:</strong>
+                        Jika Anda memilih ruangan dan rentang waktu yang beririsan dengan rapat lain yang sudah disetujui, sistem akan memunculkan peringatan merah dan tombol konfirmasi otomatis dinonaktifkan sehingga tidak akan pernah terjadi double-booking di kantor.
+                    </div>
+
+                    <h3 class="section-title" id="bab6-opname">6.4 Stock Opname (Audit Fisik Berkala)</h3>
+                    <p>Modul wajib bagi staf General Affairs untuk melakukan audit inventaris fisik di gudang secara berkala (bulanan / semester) guna membandingkan catatan sistem dengan stok fisik nyata.</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/14_stock_opname.png" alt="Modul Stock Opname">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 6.6:</strong> Modul Stock Opname dengan tombol Cek Fisik dan kalkulasi selisih otomatis.
+                        </div>
+                    </div>
+
+                    <ul class="step-list">
+                        <li data-step="1">Klik tombol <strong>Audit / Cek Fisik</strong> pada barang yang sedang dihitung di gudang.</li>
+                        <li data-step="2">Masukkan jumlah fisik nyata hasil audit.</li>
+                        <li data-step="3">Jika terdapat selisih, tuliskan alasan penyesuaian (misal: <em>Ditemukan 1 unit di lemari belakang</em> atau <em>1 unit pecah saat pemindahan</em>).</li>
+                        <li data-step="4">Klik <strong>Terapkan Penyesuaian Stok</strong>. Sistem mencatat log audit lengkap untuk pertanggungjawaban.</li>
+                    </ul>
+                </section>
+
+                <!-- BAB VII -->
+                <section class="chapter" id="bab7">
+                    <h2 class="chapter-title">BAB VII: Pelaporan, Ekspor Excel & Cetak Dokumen Resmi</h2>
+                    <p>
+                        Modul Pelaporan & Cetak Dokumen berfungsi menghasilkan rekapitulasi data yang siap diserahkan ke pimpinan instansi atau auditor.
+                    </p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/15_laporan_dan_cetak.png" alt="Pusat Laporan & Ekspor">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 7.1:</strong> Pusat Laporan dengan opsi unduh file Microsoft Excel (.xls) dan Pratinjau Cetak Fisik.
+                        </div>
+                    </div>
+
+                    <h3 class="section-title">Cetak Dokumen Ber-Kop Surat Dinas Resmi</h3>
+                    <p>Klik tombol <strong>🖨️ Cetak Fisik</strong> pada kartu laporan yang diinginkan. Sistem akan menampilkan pratinjau surat dinas lengkap dengan kop surat kantor, data tabel terstruktur, dan kolom tanda tangan pejabat yang berwenang.</p>
+
+                    <div class="screenshot-figure">
+                        <img src="./screenshots/16_modal_cetak_preview.png" alt="Pratinjau Cetak Dokumen Resmi">
+                        <div class="screenshot-caption">
+                            <strong>Gambar 7.2:</strong> Pratinjau Cetak Dokumen Resmi dengan Kop Surat Kantor dan kolom tanda tangan Kepala Divisi serta Petugas.
+                        </div>
+                    </div>
+
+                    <div class="callout">
+                        <strong>Cetak ke PDF / Printer:</strong>
+                        Klik tombol <strong>🖨️ Cetak ke PDF / Printer Sekarang</strong> untuk membuka dialog cetak bawaan browser. Anda dapat menyimpannya sebagai file <code>PDF</code> atau langsung mencetak ke mesin printer kantor.
+                    </div>
+                </section>
+
+                <!-- BAB VIII -->
+                <section class="chapter" id="bab8">
+                    <h2 class="chapter-title">BAB VIII: Pertanyaan Umum (FAQ) & Solusi Kendala</h2>
+
+                    <div class="callout">
+                        <strong>Q: Mengapa komputer rekan saya di divisi lain tidak bisa membuka alamat web aplikasi?</strong>
+                        Pastikan kedua komputer terhubung dalam satu jaringan LAN / WiFi kantor yang sama. Pastikan juga IP server kantor (contoh: <code>192.168.1.15</code>) tidak berubah dan firewall port <code>3000</code> pada komputer server telah diizinkan (Allow Inbound).
+                    </div>
+
+                    <div class="callout">
+                        <strong>Q: Bagaimana jika seorang staf pindah divisi kerja?</strong>
+                        Cukup buka menu <strong>List User</strong> &rarr; klik <strong>Edit</strong> pada akun staf tersebut &rarr; ubah pilihan pada dropdown <strong>Pilih Divisi & Level Hak Akses</strong> ke divisi baru &rarr; Simpan. Hak akses menu staf tersebut otomatis berubah seketika.
+                    </div>
+
+                    <div class="callout">
+                        <strong>Q: Bisakah data di aplikasi diekspor ke Microsoft Excel untuk keperluan audit?</strong>
+                        Sangat bisa. Buka menu <strong>Laporan & Cetak Dokumen</strong>, lalu klik tombol hijau <strong>📥 Excel</strong> pada laporan yang Anda butuhkan. File <code>.xls</code> akan langsung terunduh secara otomatis.
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>

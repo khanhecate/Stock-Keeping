@@ -86,4 +86,24 @@ public class RoomBookingDAO {
             return false;
         }
     }
+
+    public boolean isRoomAvailable(int roomId, String startTime, String endTime) {
+        String sql = "SELECT COUNT(*) FROM meeting_bookings " +
+                     "WHERE room_id = ? " +
+                     "AND status != 'Rejected' " +
+                     "AND start_time < ? " +
+                     "AND end_time > ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, roomId);
+            ps.setString(2, endTime);
+            ps.setString(3, startTime);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error check availability: " + e.getMessage());
+        }
+        return false;
+    }
 }

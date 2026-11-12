@@ -38,6 +38,7 @@
             </columns>
         </TableView>
         <HBox alignment="CENTER_RIGHT" spacing="10.0" style="-fx-padding: 10 0 0 0;">
+            <Button onAction="#handlePrintReport" prefHeight="40.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="🖨 Cetak Laporan" />
             <Button onAction="#handleExportExcel" prefHeight="40.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="📥 Export Excel" />
         </HBox>
     </VBox>

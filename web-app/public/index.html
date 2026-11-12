@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Manajemen Inventaris & Ruangan Kantor</title>
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- ============================================================== -->
+        <!-- SIDEBAR NAVIGATION -->
+        <!-- ============================================================== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-icon">📦</div>
+                <div class="brand-text">
+                    <h2>INVENTORY KANTOR</h2>
+                    <span>Sistem Manajemen Aset</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Overview -->
+                <div class="nav-section" data-group="menu_dashboard">
+                    <div class="nav-section-title">Ringkasan</div>
+                    <a class="nav-item active" data-view="dashboard" data-perm="menu_dashboard">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                        Dashboard
+                    </a>
+                </div>
+
+                <!-- Master Data -->
+                <div class="nav-section" data-group="menu_master">
+                    <div class="nav-section-title">Master Data</div>
+                    <a class="nav-item" data-view="assets" data-perm="sub_asset">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                        Data Aset (Barang)
+                    </a>
+                    <a class="nav-item" data-view="categories" data-perm="sub_category">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                        Kategori Barang
+                    </a>
+                    <a class="nav-item" data-view="rooms" data-perm="sub_room">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"/><path d="M10 9h4"/><path d="M10 13h4"/></svg>
+                        Ruang Rapat
+                    </a>
+                    <a class="nav-item" data-view="locations" data-perm="sub_location">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Lokasi Penyimpanan
+                    </a>
+                    <a class="nav-item" data-view="statuses" data-perm="sub_status">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        Status Inventaris
+                    </a>
+                    <a class="nav-item" data-view="suppliers" data-perm="sub_supplier">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
+                        Supplier / Vendor
+                    </a>
+                </div>
+
+                <!-- Transaksi Operasional -->
+                <div class="nav-section" data-group="menu_transaksi">
+                    <div class="nav-section-title">Operasional & Transaksi</div>
+                    <a class="nav-item" data-view="loans" data-perm="sub_loan">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Peminjaman Aset
+                    </a>
+                    <a class="nav-item" data-view="outbounds" data-perm="sub_outbound">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Barang Keluar (Habis Pakai)
+                    </a>
+                    <a class="nav-item" data-view="bookings" data-perm="sub_booking">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                        Booking Ruang Rapat
+                    </a>
+                    <a class="nav-item" data-view="stock-opname" data-perm="sub_stock_opname">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+                        Stock Opname
+                    </a>
+                </div>
+
+                <!-- Laporan -->
+                <div class="nav-section" data-group="menu_laporan">
+                    <div class="nav-section-title">Pelaporan & Ekspor</div>
+                    <a class="nav-item" data-view="reports" data-perm="menu_laporan">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        Laporan & Cetak Dokumen
+                    </a>
+                </div>
+
+                <!-- Akses & Pengguna -->
+                <div class="nav-section" data-group="menu_akses">
+                    <div class="nav-section-title">Akses & Pengguna</div>
+                    <a class="nav-item" data-view="users" data-perm="sub_user_list">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        List User
+                    </a>
+                    <a class="nav-item" data-view="access" data-perm="sub_access_list">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        List Akses (Divisi)
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge">
+                    <div class="user-avatar" id="currentUserAvatar">A</div>
+                    <div class="user-info">
+                        <div class="user-name" id="currentUserName">Administrator</div>
+                        <div class="user-role" id="currentUserRole">Admin Kantor</div>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="logout()" title="Keluar">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================================================== -->
+        <!-- MAIN CONTENT WRAPPER -->
+        <!-- ============================================================== -->
+        <div class="main-wrapper">
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="page-title-group">
+                        <h1 id="pageTitle">Dashboard Utama</h1>
+                        <p id="pageDesc">Ringkasan operasional dan status inventaris terkini</p>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="db-status-pill online" id="dbStatusPill">
+                        <span class="status-dot"></span>
+                        <span id="dbStatusText">Memeriksa Database...</span>
+                    </div>
+
+                    <button class="btn-icon" id="themeToggleBtn" title="Ganti Tema (Dark/Light)">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/></svg>
+                    </button>
+
+                    <button class="btn btn-primary" onclick="openAddAssetModal()">
+                        <span>+ Tambah Aset</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- MAIN PAGES AREA -->
+            <main class="content-area">
+
+                <!-- 1. VIEW: DASHBOARD -->
+                <section class="view-section active" id="view-dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="statTotalAssets">0</h3>
+                                <p>Jenis Aset Terdaftar</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon emerald">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="statTotalQty">0 item</h3>
+                                <p>Total Fisik Seluruh Stok</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="statActiveLoans">0</h3>
+                                <p>Aset Sedang Dipinjam</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon amber">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="statTodayBookings">0</h3>
+                                <p>Rapat Hari Ini</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
+                        <!-- Recent Loans Table -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Sirkulasi Peminjaman Aset Terbaru</h3>
+                                <button class="btn btn-secondary btn-sm" onclick="loadView('loans')">Lihat Semua →</button>
+                            </div>
+                            <div class="card-body" style="padding:0;">
+                                <div class="table-responsive">
+                                    <table class="data-table" id="dashRecentLoansTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Peminjam (PIC)</th>
+                                                <th>Aset Barang</th>
+                                                <th>Tgl Pinjam</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dynamic rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Side widgets -->
+                        <div>
+                            <!-- Today's Schedule -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Agenda Ruang Rapat</h3>
+                                    <button class="btn btn-secondary btn-sm" onclick="openAddBookingModal()">+ Booking</button>
+                                </div>
+                                <div class="card-body" id="dashUpcomingBookings">
+                                    <!-- Dynamic agenda -->
+                                </div>
+                            </div>
+
+                            <!-- Category breakdown -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Distribusi Kategori</h3>
+                                </div>
+                                <div class="card-body" id="dashCategoryList" style="padding: 12px 20px;">
+                                    <!-- Dynamic categories -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. VIEW: MASTER ASSETS -->
+                <section class="view-section" id="view-assets">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="toolbar" style="margin-bottom:0; width:100%;">
+                                <div class="search-input-wrapper">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <input type="text" id="searchAssetInput" placeholder="Cari nama barang, barcode, kategori..." oninput="loadAssetsData()">
+                                </div>
+                                <div class="toolbar-actions">
+                                    <button class="btn btn-primary" onclick="openAddAssetModal()">
+                                        + Tambah Aset Baru
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="assetsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Barcode</th>
+                                            <th>Nama Barang & Spesifikasi</th>
+                                            <th>Kategori</th>
+                                            <th>Stok</th>
+                                            <th>Status</th>
+                                            <th>Lokasi</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Dynamic asset items -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. VIEW: MASTER CATEGORIES -->
+                <section class="view-section" id="view-categories">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Daftar Kategori Inventaris</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddCategoryModal()">+ Tambah Kategori</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="categoriesTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Kategori</th>
+                                            <th>Tipe Klasifikasi</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. VIEW: MASTER ROOMS -->
+                <section class="view-section" id="view-rooms">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Daftar Ruang Rapat / Pertemuan</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddRoomModal()">+ Tambah Ruangan</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="roomsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Ruangan</th>
+                                            <th>Fasilitas / Deskripsi</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. VIEW: MASTER LOCATIONS -->
+                <section class="view-section" id="view-locations">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Daftar Lokasi Penyimpanan</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddLocationModal()">+ Tambah Lokasi</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="locationsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Lokasi</th>
+                                            <th>Deskripsi</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. VIEW: MASTER STATUSES -->
+                <section class="view-section" id="view-statuses">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Daftar Status Inventaris</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddStatusModal()">+ Tambah Status</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="statusesTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Status</th>
+                                            <th>Keterangan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. VIEW: MASTER SUPPLIERS -->
+                <section class="view-section" id="view-suppliers">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Daftar Supplier / Rekanan Vendor</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openAddSupplierModal()">+ Tambah Supplier</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="suppliersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Vendor</th>
+                                            <th>Telepon</th>
+                                            <th>Email</th>
+                                            <th>Alamat</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. VIEW: LOANS (PEMINJAMAN) -->
+                <section class="view-section" id="view-loans">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="toolbar" style="margin-bottom:0; width:100%;">
+                                <div style="display:flex; gap:12px; align-items:center;">
+                                    <select id="filterLoanStatus" class="form-control" style="width:200px;" onchange="loadLoansData()">
+                                        <option value="">Semua Status</option>
+                                        <option value="Dipinjam">Sedang Dipinjam</option>
+                                        <option value="Kembali">Sudah Kembali</option>
+                                    </select>
+                                </div>
+                                <div class="toolbar-actions">
+                                    <button class="btn btn-primary" onclick="openAddLoanModal()">
+                                        + Catat Peminjaman Baru
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="loansTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>PIC & Divisi</th>
+                                            <th>Aset Barang</th>
+                                            <th>Qty</th>
+                                            <th>Lokasi Tujuan</th>
+                                            <th>Tgl Pinjam</th>
+                                            <th>Estimasi Kembali</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 9. VIEW: OUTBOUNDS (BARANG KELUAR) -->
+                <section class="view-section" id="view-outbounds">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Riwayat Pengeluaran Barang (Habis Pakai / Rusak)</h3>
+                            <button class="btn btn-primary" onclick="openAddOutboundModal()">+ Catat Barang Keluar</button>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="outboundsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Barang</th>
+                                            <th>Jumlah Keluar</th>
+                                            <th>Lokasi Tujuan</th>
+                                            <th>Tanggal Keluar</th>
+                                            <th>Keterangan / Alasan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 10. VIEW: BOOKINGS (RUANG RAPAT) -->
+                <section class="view-section" id="view-bookings">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="toolbar" style="margin-bottom:0; width:100%;">
+                                <div style="display:flex; gap:12px; align-items:center;">
+                                    <select id="filterBookingStatus" class="form-control" style="width:180px;" onchange="loadBookingsData()">
+                                        <option value="">Semua Status</option>
+                                        <option value="Approved">Disetujui (Approved)</option>
+                                        <option value="Pending">Menunggu (Pending)</option>
+                                        <option value="Rejected">Ditolak (Rejected)</option>
+                                    </select>
+                                </div>
+                                <div class="toolbar-actions">
+                                    <button class="btn btn-primary" onclick="openAddBookingModal()">
+                                        + Reservasi Ruang Rapat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="bookingsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Ruangan</th>
+                                            <th>Jadwal Pelaksanaan</th>
+                                            <th>PIC & Penyelenggara</th>
+                                            <th>Peserta</th>
+                                            <th>Keperluan Rapat</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 11. VIEW: STOCK OPNAME -->
+                <section class="view-section" id="view-stock-opname">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="toolbar" style="margin-bottom:0; width:100%;">
+                                <div class="search-input-wrapper">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <input type="text" id="searchStockOpname" placeholder="Cari aset untuk stock opname..." oninput="loadStockOpnameData()">
+                                </div>
+                                <div class="toolbar-actions">
+                                    <button class="btn btn-secondary" onclick="triggerExcelExport('stock')">📥 Export Excel</button>
+                                    <button class="btn btn-primary" onclick="openPrintPreviewModal('history')">🖨️ Cetak Lembar Opname</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="stockOpnameTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Barcode</th>
+                                            <th>Nama Barang</th>
+                                            <th>Kategori</th>
+                                            <th>Stok Sistem</th>
+                                            <th>Status Saat Ini</th>
+                                            <th>Aksi Audit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 12. VIEW: REPORTS -->
+                <section class="view-section" id="view-reports">
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:28px;">
+                        <!-- Report 1 -->
+                        <div class="card" style="margin-bottom:0;">
+                            <div class="card-body">
+                                <h4>Laporan Peminjaman Aset</h4>
+                                <p style="font-size:12.5px; color:var(--text-muted); margin:6px 0 16px;">Rekapitulasi pihak yang meminjam barang dan histori pengembalian.</p>
+                                <div style="display:flex; gap:8px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="triggerExcelExport('loan')">📥 Excel</button>
+                                    <button class="btn btn-primary btn-sm" onclick="openPrintPreviewModal('loans')">🖨️ Cetak Fisik</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Report 2 -->
+                        <div class="card" style="margin-bottom:0;">
+                            <div class="card-body">
+                                <h4>Laporan Pemesanan Ruang Rapat</h4>
+                                <p style="font-size:12.5px; color:var(--text-muted); margin:6px 0 16px;">Rekapitulasi pemakaian ruang rapat untuk audit penggunaan fasilitas.</p>
+                                <div style="display:flex; gap:8px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="triggerExcelExport('booking')">📥 Excel</button>
+                                    <button class="btn btn-primary btn-sm" onclick="openPrintPreviewModal('bookings')">🖨️ Cetak Fisik</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Report 3 -->
+                        <div class="card" style="margin-bottom:0;">
+                            <div class="card-body">
+                                <h4>Laporan Master Stok & Aset</h4>
+                                <p style="font-size:12.5px; color:var(--text-muted); margin:6px 0 16px;">Rekapitulasi seluruh nilai aset dan posisi stok barang di gudang.</p>
+                                <div style="display:flex; gap:8px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="triggerExcelExport('asset')">📥 Excel</button>
+                                    <button class="btn btn-primary btn-sm" onclick="openPrintPreviewModal('history')">🖨️ Cetak Fisik</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Log Sirkulasi Inventaris Lengkap (Masuk, Keluar, Peminjaman)</h3>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="reportHistoryTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal</th>
+                                            <th>Barcode</th>
+                                            <th>Nama Barang</th>
+                                            <th>Tipe Sirkulasi</th>
+                                            <th>Qty</th>
+                                            <th>Lokasi</th>
+                                            <th>Keterangan / PIC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 13. VIEW: LIST USER -->
+                <section class="view-section" id="view-users">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="toolbar" style="margin-bottom:0; width:100%;">
+                                <div class="search-input-wrapper">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <input type="text" id="searchUserInput" placeholder="Cari username, nama, divisi..." oninput="loadUsersData()">
+                                </div>
+                                <div class="toolbar-actions">
+                                    <button class="btn btn-primary" onclick="openAddUserModal()">
+                                        + Tambah User Baru
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding:0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="usersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Username</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Divisi / Departemen</th>
+                                            <th>Level Hak Akses</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 14. VIEW: AKSES & PERMISSIONS (MATCHING USER REFERENCE SCREENSHOTS) -->
+                <section class="view-section" id="view-access">
+                    <!-- SCREEN A: LIST AKSES (IMAGE 1) -->
+                    <div id="accessListScreen">
+                        <div style="margin-bottom: 20px;">
+                            <button class="btn btn-primary" onclick="openAddAccessForm()">
+                                Tambah Akses
+                            </button>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>List Akses</h3>
+                            </div>
+                            <div class="card-body" style="padding: 16px 24px 0;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:16px;">
+                                    <div style="display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--text-secondary);">
+                                        <select id="accessEntriesSelect" class="form-control" style="width:75px; padding:6px 10px;">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        <span>entries per page</span>
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <span style="font-size:13.5px; color:var(--text-secondary);">Search:</span>
+                                        <input type="text" id="searchAccessInput" class="form-control" style="width:200px; padding:6px 12px;" oninput="loadAccessData()">
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="data-table" id="accessTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 60px;">No</th>
+                                                <th>Divisi</th>
+                                                <th>Level</th>
+                                                <th style="width: 170px; text-align: center;">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                                <div class="table-pagination-bar" id="accessPaginationBar">
+                                    <div id="accessPaginationInfo">Showing 1 to 10 of 10 entries</div>
+                                    <div class="pagination-links" id="accessPaginationLinks">
+                                        <button class="page-num active">1</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SCREEN B: FORM AKSES & PERMISSION MATRIX (IMAGE 2) -->
+                    <div id="accessDetailScreen" style="display: none;">
+                        <div style="margin-bottom: 18px; display:flex; align-items:center; justify-content:space-between;">
+                            <button class="btn btn-secondary" onclick="closeAccessForm()">
+                                ← Kembali ke List Akses
+                            </button>
+                            <span class="badge badge-info" id="accessFormModeBadge">Edit Akses</span>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 id="accessFormTitle">List Akses - Pengaturan Hak Akses</h3>
+                            </div>
+                            <div class="card-body">
+                                <input type="hidden" id="formAccessId">
+                                
+                                <div class="form-grid" style="margin-bottom: 24px;">
+                                    <div class="form-group">
+                                        <label>Divisi *</label>
+                                        <input type="text" id="formAccessDivisi" class="form-control" placeholder="Contoh: Information Technology" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Level *</label>
+                                        <input type="text" id="formAccessLevel" class="form-control" placeholder="Contoh: Administrator / Staff / Director" required>
+                                    </div>
+                                </div>
+
+                                <!-- PERMISSION CHECKBOX MATRIX (2 COLUMNS: MENU MAIN & SUBMENU) -->
+                                <div class="permission-matrix-container">
+                                    <!-- LEFT COLUMN: MENU MAIN -->
+                                    <div>
+                                        <div class="perm-col-title">
+                                            <span>Menu Main</span>
+                                        </div>
+                                        <div id="mainMenuChecklist">
+                                            <label class="perm-checkbox-item">
+                                                <input type="checkbox" value="menu_dashboard" class="perm-check perm-main-check">
+                                                <span>Dashboard</span>
+                                            </label>
+                                            <label class="perm-checkbox-item">
+                                                <input type="checkbox" value="menu_master" class="perm-check perm-main-check">
+                                                <span>Master Data</span>
+                                            </label>
+                                            <label class="perm-checkbox-item">
+                                                <input type="checkbox" value="menu_transaksi" class="perm-check perm-main-check">
+                                                <span>Operasional & Transaksi</span>
+                                            </label>
+                                            <label class="perm-checkbox-item">
+                                                <input type="checkbox" value="menu_laporan" class="perm-check perm-main-check">
+                                                <span>Laporan & Cetak</span>
+                                            </label>
+                                            <label class="perm-checkbox-item">
+                                                <input type="checkbox" value="menu_akses" class="perm-check perm-main-check">
+                                                <span>Akses & Pengguna</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- RIGHT COLUMN: SUBMENU GROUPED -->
+                                    <div>
+                                        <div class="perm-col-title">
+                                            <span>Submenu</span>
+                                        </div>
+                                        <div id="submenuChecklist">
+                                            <!-- Master Data Submenus -->
+                                            <div class="perm-submenu-group">
+                                                <div class="perm-submenu-group-title">Master Data</div>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_asset" class="perm-check">
+                                                    <span>Data Aset (Barang)</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_category" class="perm-check">
+                                                    <span>Kategori Barang</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_room" class="perm-check">
+                                                    <span>Ruang Rapat</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_location" class="perm-check">
+                                                    <span>Lokasi Penyimpanan</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_status" class="perm-check">
+                                                    <span>Status Inventaris</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_supplier" class="perm-check">
+                                                    <span>Supplier / Vendor</span>
+                                                </label>
+                                            </div>
+
+                                            <!-- Transaksi Submenus -->
+                                            <div class="perm-submenu-group">
+                                                <div class="perm-submenu-group-title">Operasional & Transaksi</div>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_loan" class="perm-check">
+                                                    <span>Peminjaman Aset</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_outbound" class="perm-check">
+                                                    <span>Barang Keluar (Habis Pakai)</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_booking" class="perm-check">
+                                                    <span>Booking Ruang Rapat</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_stock_opname" class="perm-check">
+                                                    <span>Stock Opname</span>
+                                                </label>
+                                            </div>
+
+                                            <!-- Laporan Submenus -->
+                                            <div class="perm-submenu-group">
+                                                <div class="perm-submenu-group-title">Laporan & Cetak</div>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_report_history" class="perm-check">
+                                                    <span>Log Sirkulasi Aset</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_report_loan" class="perm-check">
+                                                    <span>Laporan Peminjaman</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_report_booking" class="perm-check">
+                                                    <span>Laporan Ruang Rapat</span>
+                                                </label>
+                                            </div>
+
+                                            <!-- User & Akses Submenus -->
+                                            <div class="perm-submenu-group">
+                                                <div class="perm-submenu-group-title">User & Akses</div>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_user_list" class="perm-check">
+                                                    <span>List User</span>
+                                                </label>
+                                                <label class="perm-checkbox-item">
+                                                    <input type="checkbox" value="sub_access_list" class="perm-check">
+                                                    <span>List Akses Divisi</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
+                                    <div style="display:flex; gap:10px;">
+                                        <button type="button" class="btn btn-secondary btn-sm" onclick="toggleAllPerms(true)">Pilih Semua</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" onclick="toggleAllPerms(false)">Batal Semua</button>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="saveAccessPermissions()">
+                                        💾 Simpan Pengaturan Akses
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL DIALOGS -->
+    <!-- ============================================================== -->
+
+    <!-- 1. MODAL: ASSET FORM -->
+    <div class="modal-overlay" id="assetModal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3 id="assetModalTitle">Tambah Aset / Barang Baru</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="assetForm">
+                <input type="hidden" id="assetId">
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Kode Barcode / Aset *</label>
+                            <input type="text" id="assetBarcode" class="form-control" placeholder="AST-2026-001" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Barang / Aset *</label>
+                            <input type="text" id="assetName" class="form-control" placeholder="Contoh: Laptop Dell Latitude 3420" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori *</label>
+                            <select id="assetCategory" class="form-control" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Lokasi Penyimpanan</label>
+                            <select id="assetLocation" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Supplier / Vendor</label>
+                            <select id="assetSupplier" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status Ketersediaan</label>
+                            <select id="assetStatus" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Fisik (Qty) *</label>
+                            <input type="number" id="assetQty" class="form-control" min="0" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Satuan Unit</label>
+                            <input type="text" id="assetUnit" class="form-control" placeholder="pcs / unit / rim / box" value="pcs">
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label>Spesifikasi & Keterangan Tambahan</label>
+                            <textarea id="assetSpec" class="form-control" placeholder="Contoh: Spesifikasi teknis, serial number, masa garansi..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data Aset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. MODAL: CATEGORY FORM -->
+    <div class="modal-overlay" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="categoryModalTitle">Kategori Barang</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="categoryForm">
+                <input type="hidden" id="categoryId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Kategori *</label>
+                        <input type="text" id="categoryName" class="form-control" placeholder="Contoh: Elektronik & IT" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipe Klasifikasi *</label>
+                        <select id="categoryType" class="form-control" required>
+                            <option value="ASET">ASET (Barang Inventaris / Tidak Habis)</option>
+                            <option value="CONSUMABLE">CONSUMABLE (Barang Habis Pakai / ATK)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. MODAL: ROOM FORM -->
+    <div class="modal-overlay" id="roomModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="roomModalTitle">Ruangan Rapat</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="roomForm">
+                <input type="hidden" id="roomId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Ruangan *</label>
+                        <input type="text" id="roomName" class="form-control" placeholder="Contoh: Ruang Rapat Garuda" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fasilitas & Deskripsi</label>
+                        <textarea id="roomDesc" class="form-control" placeholder="Kapasitas, Smart TV, Proyektor, AC..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. MODAL: LOCATION FORM -->
+    <div class="modal-overlay" id="locationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="locationModalTitle">Lokasi Penyimpanan</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="locationForm">
+                <input type="hidden" id="locationId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Lokasi *</label>
+                        <input type="text" id="locationName" class="form-control" placeholder="Contoh: Gudang Utama Lantai 1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi Lokasi</label>
+                        <textarea id="locationDesc" class="form-control" placeholder="Keterangan letak atau akses lokasi..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. MODAL: STATUS FORM -->
+    <div class="modal-overlay" id="statusModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="statusModalTitle">Status Inventaris</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="statusForm">
+                <input type="hidden" id="statusId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Status *</label>
+                        <input type="text" id="statusName" class="form-control" placeholder="Contoh: Dalam Perbaikan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea id="statusDesc" class="form-control" placeholder="Keterangan arti status..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 6. MODAL: SUPPLIER FORM -->
+    <div class="modal-overlay" id="supplierModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="supplierModalTitle">Supplier / Vendor</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="supplierForm">
+                <input type="hidden" id="supplierId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Perusahaan / Supplier *</label>
+                        <input type="text" id="supplierName" class="form-control" placeholder="PT Mitra Solusi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Telepon</label>
+                        <input type="text" id="supplierPhone" class="form-control" placeholder="021-xxxx / 0812xxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="supplierEmail" class="form-control" placeholder="sales@vendor.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat Lengkap</label>
+                        <textarea id="supplierAddress" class="form-control" placeholder="Alamat kantor rekanan..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 7. MODAL: LOAN FORM (PEMINJAMAN) -->
+    <div class="modal-overlay" id="loanModal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>Catat Peminjaman Aset Baru</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="loanForm">
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nama Peminjam (PIC) *</label>
+                            <input type="text" id="loanPic" class="form-control" placeholder="Contoh: Budi Santoso" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Divisi / Unit Kerja *</label>
+                            <input type="text" id="loanDivision" class="form-control" placeholder="Contoh: Marketing / IT / HR" required>
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label>Pilih Barang yang Dipinjam *</label>
+                            <select id="loanAsset" class="form-control" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Unit yang Dipinjam *</label>
+                            <input type="number" id="loanQty" class="form-control" min="1" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Lokasi Penggunaan / Tujuan *</label>
+                            <input type="text" id="loanLocation" class="form-control" placeholder="Contoh: Ruang Rapat Garuda" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tanggal Pinjam *</label>
+                            <input type="date" id="loanDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Estimasi Tanggal Kembali</label>
+                            <input type="date" id="loanReturnEstimate" class="form-control">
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label>Tujuan / Keperluan Peminjaman</label>
+                            <textarea id="loanPurpose" class="form-control" placeholder="Jelaskan kebutuhan peminjaman aset ini..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Konfirmasi Peminjaman</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 8. MODAL: OUTBOUND FORM -->
+    <div class="modal-overlay" id="outboundModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Catat Pengeluaran Barang</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="outboundForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Pilih Barang *</label>
+                        <select id="outboundAsset" class="form-control" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Lokasi Tujuan Pengeluaran *</label>
+                        <select id="outboundLocation" class="form-control" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah Keluar *</label>
+                        <input type="number" id="outboundQty" class="form-control" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Pengeluaran *</label>
+                        <input type="date" id="outboundDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Alasan / Keterangan</label>
+                        <textarea id="outboundPurpose" class="form-control" placeholder="Keperluan operasional bulanan / barang rusak dibuang..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Pengeluaran</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 9. MODAL: ROOM BOOKING FORM -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>Reservasi Ruang Rapat Kantor</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="bookingForm">
+                <div class="modal-body">
+                    <div id="bookingAvailabilityBanner" style="display:none; margin-bottom:16px;"></div>
+
+                    <div class="form-grid">
+                        <div class="form-group col-span-2">
+                            <label>Pilih Ruangan Rapat *</label>
+                            <select id="bookingRoom" class="form-control" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu Mulai Rapat *</label>
+                            <input type="datetime-local" id="bookingStartTime" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu Selesai Rapat *</label>
+                            <input type="datetime-local" id="bookingEndTime" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Penanggung Jawab (PIC) *</label>
+                            <input type="text" id="bookingPic" class="form-control" placeholder="Contoh: Dewi Lestari" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Divisi / Unit Kerja *</label>
+                            <input type="text" id="bookingDivision" class="form-control" placeholder="Contoh: Human Resources" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Jabatan PIC</label>
+                            <input type="text" id="bookingPosition" class="form-control" placeholder="Contoh: HR Manager">
+                        </div>
+                        <div class="form-group">
+                            <label>Perkiraan Jumlah Peserta (Orang) *</label>
+                            <input type="number" id="bookingParticipants" class="form-control" min="1" value="5" required>
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label>Agenda / Topik Pembahasan Rapat *</label>
+                            <textarea id="bookingPurpose" class="form-control" placeholder="Tuliskan agenda rapat secara singkat..." required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Konfirmasi Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 10. MODAL: ADJUST STOCK OPNAME -->
+    <div class="modal-overlay" id="stockOpnameModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Penyesuaian Stok (Stock Opname)</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="stockOpnameForm">
+                <input type="hidden" id="opnameAssetId">
+                <div class="modal-body">
+                    <div style="background-color:var(--bg-subtle); padding:16px; border-radius:var(--radius-md); margin-bottom:18px;">
+                        <div style="font-size:12px; color:var(--text-muted);">Barang yang Disurvei:</div>
+                        <strong id="opnameItemName" style="font-size:15px; color:var(--text-primary);">-</strong>
+                        <div style="margin-top:6px; font-size:13px;">Stok Tercatat di Sistem: <strong id="opnameSystemQty">0</strong></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Fisik Riil Hasil Audit *</label>
+                        <input type="number" id="opnamePhysicalQty" class="form-control" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Catatan Penyesuaian / Alasan Selisih</label>
+                        <textarea id="opnameNotes" class="form-control" placeholder="Misal: Ditemukan tambahan di rak belakang / barang pecah..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Terapkan Penyesuaian Stok</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 11. MODAL: PRINT PREVIEW -->
+    <div class="modal-overlay" id="printModal">
+        <div class="modal-content modal-lg" id="printModalContainer" style="max-width:960px;">
+            <div class="modal-header no-print">
+                <h3>Pratinjau Cetak Dokumen Resmi Kantor</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" style="background:#f8fafc; padding:20px;">
+                <div class="print-report-paper" id="printPaperContent">
+                    <!-- Dynamic printable letterhead & table -->
+                </div>
+            </div>
+            <div class="modal-footer no-print">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" onclick="executeBrowserPrint()">
+                    🖨️ Cetak ke PDF / Printer Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. MODAL: USER FORM (GROUP RBAC ASSIGNMENT) -->
+    <div class="modal-overlay" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="userModalTitle">Tambah Pengguna Baru</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="userForm">
+                <input type="hidden" id="formUserId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Username *</label>
+                        <input type="text" id="formUserUsername" class="form-control" placeholder="Contoh: andi_it" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Lengkap Pegawai *</label>
+                        <input type="text" id="formUserName" class="form-control" placeholder="Contoh: Andi Pratama, S.Kom" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password <span id="pwdRequiredStar">*</span></label>
+                        <input type="password" id="formUserPassword" class="form-control" placeholder="Minimal 6 karakter">
+                        <small style="font-size:11.5px; color:var(--text-muted);" id="pwdHelpText">Kosongkan jika tidak ingin mengubah password saat edit.</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Pilih Divisi & Level Hak Akses *</label>
+                        <select id="formUserAccessId" class="form-control" required>
+                            <!-- Populated dynamically from /api/access -->
+                        </select>
+                        <small style="font-size:11.5px; color:var(--primary); margin-top:4px; display:block;">
+                            ℹ️ Pegawai otomatis mewarisi seluruh izin akses menu dari grup Divisi & Level ini (seperti permission group Synology NAS).
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Status Akun Pengguna</label>
+                        <select id="formUserIsActive" class="form-control">
+                            <option value="1">Aktif (Dapat Login ke Sistem)</option>
+                            <option value="0">Nonaktif (Akses Ditangguhkan)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

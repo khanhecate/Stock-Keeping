@@ -22,6 +22,8 @@
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Pencarian:" />
                 <TextField fx:id="txtSearch" prefHeight="30.0" prefWidth="250.0" promptText="Ketik nama atau kategori..." style="-fx-background-radius: 15;" />
                 <Button onAction="#handleRefresh" style="-fx-background-color: #5d87ff; -fx-text-fill: white; -fx-cursor: hand;" text="Refresh Data" />
+                <Button onAction="#handleExportExcel" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-cursor: hand;" text="Export Excel" />
+                <Button onAction="#handlePrintReport" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-cursor: hand;" text="Cetak Laporan" />
             </HBox>
             
             <TableView fx:id="tableStock" VBox.vgrow="ALWAYS">

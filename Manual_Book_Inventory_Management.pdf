@@ -1,0 +1,108 @@
+# BUKU PANDUAN PENGGUNA (USER MANUAL)
+## Aplikasi Inventory Management
+
+---
+
+### BAB I: PENDAHULUAN
+
+**1.1 Deskripsi Aplikasi**
+Aplikasi *Inventory Management* adalah perangkat lunak berbasis desktop (JavaFX) yang dirancang untuk mengelola pendataan barang (aset), pergerakan barang (peminjaman dan pengeluaran), serta pemesanan ruangan. Sistem ini membantu pencatatan administrasi secara digital sehingga meminimalisir kesalahan manusia (human error) dan mempermudah pelacakan aset perusahaan atau kampus.
+
+**1.2 Kebutuhan Sistem**
+- Sistem Operasi: Windows / macOS / Linux
+- Java Development Kit (JDK): Versi 11 atau lebih baru
+- Database: MySQL
+- Library Tambahan: JavaFX, Apache POI (untuk Excel), JasperReports (untuk cetak/print)
+
+---
+
+### BAB II: MEMULAI APLIKASI
+
+**2.1 Form Login**
+Langkah pertama untuk menggunakan aplikasi ini adalah melakukan otentikasi.
+1. Buka aplikasi *Inventory Management*.
+2. Layar akan menampilkan halaman **Login**.
+3. Masukkan **Username** dan **Password** yang telah didaftarkan ke dalam database.
+4. Klik tombol **Login**.
+5. Jika data valid, Anda akan diarahkan ke halaman **Main Dashboard** (Menu Utama). Jika tidak, akan muncul peringatan error.
+
+---
+
+### BAB III: MENU UTAMA (MAIN DASHBOARD)
+
+Setelah berhasil login, Anda akan masuk ke halaman *Main Dashboard*. Halaman ini merupakan pusat kendali dari seluruh fitur aplikasi. 
+
+Terdapat menu navigasi utama yang dibagi menjadi beberapa kategori:
+1. **Master Data:** Digunakan untuk mengelola data-data inti/referensi.
+2. **Transaksi:** Digunakan untuk mencatat aktivitas peminjaman, barang keluar, dan booking ruangan.
+3. **Laporan (Report):** Digunakan untuk melihat histori, mencetak data, dan mengekspor laporan.
+
+---
+
+### BAB IV: MASTER DATA
+
+Fitur *Master Data* digunakan untuk menambah, mengubah, menghapus, dan mencari data inti aplikasi.
+
+**4.1 Master Asset (Data Barang)**
+Digunakan untuk mendata seluruh barang yang ada.
+- **Tambah Data:** Isi *Barcode*, *Nama Barang*, *Kategori*, *Lokasi*, *Stok*, dll. Lalu klik tombol **Simpan**.
+- **Edit Data:** Pilih data dari tabel, ubah informasi pada form, lalu klik tombol **Update**.
+- **Hapus Data:** Pilih data dari tabel, lalu klik tombol **Delete**.
+- **Pencarian:** Gunakan kotak pencarian untuk mencari barang berdasarkan nama atau barcode.
+
+**4.2 Master Lainnya**
+Pengoperasian form di bawah ini sama dengan Master Asset (memiliki fitur *Create, Read, Update, Delete*):
+- **Master Kategori:** Untuk mengelompokkan jenis barang.
+- **Master Ruangan:** Untuk mendata ruangan yang bisa dipesan (booking).
+- **Master Lokasi:** Untuk mendata letak lokasi penyimpanan barang.
+- **Master Supplier:** Untuk mendata pemasok barang.
+- **Master Status:** Untuk mengatur status barang/ruangan (Tersedia, Dipinjam, Rusak).
+
+---
+
+### BAB V: TRANSAKSI
+
+Fitur Transaksi mencatat lalu lintas barang dan ruangan.
+
+**5.1 Peminjaman Barang (Loan)**
+Digunakan ketika ada pihak yang ingin meminjam barang inventaris.
+1. Buka menu **Peminjaman Barang**.
+2. Masukkan nama peminjam (PIC), divisi, dan pilih aset yang dipinjam.
+3. Tentukan jumlah (*Quantity*) dan lokasi tujuan.
+4. Masukkan **Tanggal Pinjam** dan **Estimasi Tanggal Kembali**.
+5. Klik **Simpan**. Otomatis status barang/stok barang akan disesuaikan oleh sistem.
+
+**5.2 Barang Keluar (Outbound)**
+Digunakan untuk mencatat barang yang keluar (misalnya barang habis pakai atau barang rusak yang dibuang).
+1. Buka menu **Barang Keluar**.
+2. Pilih barang yang akan dikeluarkan dan tentukan jumlahnya.
+3. Tambahkan keterangan/alasan barang keluar.
+4. Klik **Simpan**. Stok barang di Master Asset otomatis akan berkurang.
+
+**5.3 Pemesanan Ruangan (Room Booking)**
+1. Buka menu **Booking Ruangan**.
+2. Pilih Ruangan, tanggal mulai, dan waktu selesai penggunaan.
+3. Klik **Simpan**. Ruangan tersebut tidak akan bisa dipesan oleh orang lain pada waktu yang berbenturan.
+
+---
+
+### BAB VI: LAPORAN (REPORT)
+
+Bagian ini digunakan untuk memantau keseluruhan pergerakan aplikasi dan mencetak bukti.
+
+**6.1 Laporan Aset & Histori**
+- Buka menu **Report Asset**.
+- Akan tampil tabel riwayat transaksi barang (masuk/keluar).
+- Gunakan fitur **Filter** (berdasarkan tanggal awal dan akhir) untuk menyaring data.
+
+**6.2 Laporan Peminjaman & Booking**
+- Buka menu **Report Loan** atau **Report Room Booking**.
+- Menampilkan data siapa saja yang meminjam barang atau menyewa ruangan.
+
+**6.3 Cetak & Ekspor Dokumen**
+Pada setiap form laporan terdapat dua tombol penting:
+1. **Export Excel:** Menyimpan isi tabel laporan menjadi file `.xlsx` agar bisa diolah lebih lanjut di Microsoft Excel.
+2. **Print (Cetak):** Mencetak laporan secara profesional dalam bentuk dokumen PDF / Kertas fisik menggunakan teknologi JasperReports.
+
+---
+*Catatan: Dokumen ini adalah rancangan panduan yang dapat Anda salin dan sesuaikan dengan antarmuka (screenshot) aplikasi Anda.*

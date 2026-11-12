@@ -1,0 +1,166 @@
+/* ==========================================================================
+   PRINT STYLESHEET - CETAK LAPORAN & BUKTI OPERASIONAL KANTOR
+   ========================================================================== */
+
+@media print {
+    /* Hide everything on the page except the printable report container */
+    body * {
+        visibility: hidden;
+    }
+
+    #printModalContainer,
+    #printModalContainer * {
+        visibility: visible;
+    }
+
+    #printModalContainer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        background: white !important;
+        color: black !important;
+    }
+
+    .no-print,
+    .modal-header,
+    .modal-footer,
+    .sidebar,
+    .topbar,
+    .btn {
+        display: none !important;
+    }
+
+    .print-report-paper {
+        width: 100% !important;
+        max-width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    /* Table styling for print */
+    .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+        font-size: 11pt;
+    }
+
+    .print-table th,
+    .print-table td {
+        border: 1px solid #333 !important;
+        padding: 8px 10px;
+        text-align: left;
+    }
+
+    .print-table th {
+        background-color: #f1f5f9 !important;
+        font-weight: bold;
+    }
+
+    /* Signatures */
+    .print-signatures {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        page-break-inside: avoid;
+    }
+
+    .signature-block {
+        width: 200px;
+        text-align: center;
+        font-size: 11pt;
+    }
+
+    .signature-space {
+        height: 70px;
+    }
+
+    .signature-name {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}
+
+/* Screen Preview for Print Modal */
+.print-report-paper {
+    background: white;
+    color: #1e293b;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.report-header {
+    text-align: center;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.report-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.report-header p {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.report-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+.print-table th {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.print-table td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.print-signatures {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding: 0 30px;
+}
+
+.signature-block {
+    text-align: center;
+    font-size: 13px;
+}
+
+.signature-space {
+    height: 75px;
+}
+
+.signature-name {
+    font-weight: 700;
+    border-bottom: 1px solid #000;
+    display: inline-block;
+    padding-bottom: 2px;
+}

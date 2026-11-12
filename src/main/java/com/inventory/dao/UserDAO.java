@@ -16,6 +16,9 @@ public class UserDAO {
 
     // Fungsi untuk mengecek Login
     public User login(String username, String password) {
+        if (conn == null) {
+            throw new RuntimeException("Koneksi ke database gagal. Pastikan MySQL sudah berjalan!");
+        }
         User user = null;
         String sql = "SELECT * FROM users WHERE username = ? AND password = ? AND is_active = 1";
         

@@ -25,7 +25,7 @@
             <TextField fx:id="txtUsername" prefHeight="35.0" promptText="Username" style="-fx-background-radius: 4; -fx-border-color: #cbd5e1; -fx-border-radius: 4;" />
             <PasswordField fx:id="txtPassword" prefHeight="35.0" promptText="Password" style="-fx-background-radius: 4; -fx-border-color: #cbd5e1; -fx-border-radius: 4;" />
             <Label fx:id="lblError" text="Username atau Password salah!" textFill="#ef4444" visible="false" />
-            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4; -fx-cursor: hand;" text="LOGIN">
+            <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4; -fx-cursor: hand;" text="LOGIN">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

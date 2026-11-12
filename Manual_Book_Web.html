@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Panduan Pengguna (User Manual) - Sistem Inventaris & Ruangan Web</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #f8fafc;
+        }
+        .container {
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 15px;
+            font-size: 26px;
+        }
+        h2 {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 35px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        h3 {
+            color: #1e3a8a;
+            margin-top: 35px;
+            border-bottom: 1.5px solid #cbd5e1;
+            padding-bottom: 6px;
+            font-size: 19px;
+        }
+        h4 {
+            color: #1e293b;
+            margin-top: 20px;
+            font-size: 15px;
+        }
+        p {
+            text-align: justify;
+            margin-bottom: 14px;
+        }
+        ul, ol {
+            margin-bottom: 18px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background-color: #f1f5f9;
+            color: #2563eb;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+        }
+        pre {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+        .note-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 14px 18px;
+            margin: 18px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 14px;
+        }
+        .btn-print {
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 25px;
+        }
+        .btn-print:hover {
+            background-color: #1d4ed8;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="window.print()" class="btn-print no-print">🖨️ Cetak / Simpan ke PDF</button>
+
+    <div class="container">
+        <h1>BUKU PANDUAN PENGGUNA & ADMINISTRATOR</h1>
+        <h2>Sistem Manajemen Inventaris & Ruang Rapat Kantor Berbasis Web</h2>
+
+        <div class="note-box">
+            <strong>Ringkasan Aplikasi:</strong> Perangkat lunak berbasis web on-premise yang dirancang untuk kantor internal guna mendata aset fisik, melacak peminjaman barang oleh karyawan, mencatat pengeluaran barang habis pakai (ATK), dan mengelola jadwal ruang rapat secara otomatis tanpa bentrok jadwal.
+        </div>
+
+        <h3>BAB I: PENDAHULUAN</h3>
+        <h4>1.1 Tentang Aplikasi</h4>
+        <p>Aplikasi ini merupakan transformasi dari sistem desktop ke platform web intranet. Sistem ini memberikan kemudahan bagi seluruh karyawan di kantor karena tidak lagi membutuhkan proses instalasi Java atau software khusus di komputer klien. Cukup melalui web browser (Google Chrome, Microsoft Edge, Mozilla Firefox) yang terhubung ke jaringan Wi-Fi atau LAN kantor, seluruh modul dapat diakses secara cepat dan aman.</p>
+
+        <h4>1.2 Kebutuhan Server (Komputer Host Kantor)</h4>
+        <ul>
+            <li><strong>Sistem Operasi:</strong> Windows 10/11, Windows Server, atau Linux.</li>
+            <li><strong>Runtime:</strong> Node.js versi 18 ke atas (disarankan v20 atau v24).</li>
+            <li><strong>Database:</strong> MySQL 5.7+ atau MariaDB (dapat menggunakan XAMPP).</li>
+            <li><strong>Konektivitas:</strong> Jaringan LAN / Wi-Fi kantor dengan alokasi IP statis pada komputer server.</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <h3>BAB II: PANDUAN DEPLOYMENT DI SERVER LOKAL KANTOR</h3>
+        <h4>2.1 Persiapan Database MySQL</h4>
+        <ol>
+            <li>Buka <strong>XAMPP Control Panel</strong> dan klik <strong>Start</strong> pada modul <strong>Apache</strong> dan <strong>MySQL</strong>.</li>
+            <li>Buka browser dan buka <code>http://localhost/phpmyadmin</code>.</li>
+            <li>Import file database dari direktori: <code>web-app/database/schema.sql</code>.</li>
+            <li>Database <code>inventory_db</code> beserta seluruh tabel dan data awal (seed) akan otomatis dibuat.</li>
+        </ol>
+
+        <h4>2.2 Menjalankan Server Node.js</h4>
+        <ol>
+            <li>Buka Terminal / Command Prompt / PowerShell.</li>
+            <li>Masuk ke folder <code>web-app</code>:
+                <pre>cd d:\KAMPUS\Pemrograman_Visual\InventoryManagement\web-app</pre>
+            </li>
+            <li>Jalankan aplikasi dengan perintah:
+                <pre>npm start</pre>
+            </li>
+            <li>Terminal akan menampilkan alamat IP yang dapat diakses oleh komputer lain di jaringan LAN kantor:
+                <pre>
+==========================================================
+   SISTEM MANAJEMEN INVENTARIS & RUANGAN KANTOR (WEB)     
+==========================================================
+[Server] Berjalan di port : 3000
+[Server] Akses Lokal      : http://localhost:3000
+[Server] Akses Jaringan LAN Kantor:
+   👉 http://192.168.1.15:3000
+==========================================================
+                </pre>
+            </li>
+        </ol>
+
+        <h4>2.3 Mengizinkan Akses Firewall Windows</h4>
+        <p>Jika komputer staf lain di kantor tidak bisa membuka tautan IP tersebut, pastikan Port 3000 diizinkan di Windows Defender Firewall (Inbound Rules) pada komputer server.</p>
+
+        <div class="page-break"></div>
+
+        <h3>BAB III: FITUR UTAMA & PENGOPERASIAN</h3>
+
+        <h4>3.1 Dashboard Utama</h4>
+        <p>Menampilkan metrik bisnis penting:</p>
+        <ul>
+            <li><strong>Total Jenis Aset:</strong> Jumlah macam barang yang terdaftar di perusahaan.</li>
+            <li><strong>Total Stok Fisik:</strong> Akumulasi unit barang riil di seluruh gudang/ruangan.</li>
+            <li><strong>Aset Dipinjam:</strong> Jumlah barang yang saat ini sedang dibawa oleh PIC.</li>
+            <li><strong>Rapat Hari Ini:</strong> Agenda pemakaian ruang rapat aktif.</li>
+            <li><strong>Distribusi Kategori:</strong> Grafik komposisi inventaris.</li>
+        </ul>
+
+        <h4>3.2 Modul Master Data</h4>
+        <p>Berfungsi untuk mengelola data inti referensi:</p>
+        <ul>
+            <li><strong>Data Aset:</strong> Menambah barang baru, mengisi spesifikasi, satuan, lokasi, dan vendor. Dilengkapi fitur <em>Auto-Generate Barcode</em> (misal: <code>AST-2026-001</code>).</li>
+            <li><strong>Kategori:</strong> Membedakan tipe klasifikasi <code>ASET</code> (barang modal tahan lama) dan <code>CONSUMABLE</code> (barang habis pakai seperti ATK/kertas).</li>
+            <li><strong>Ruang Rapat:</strong> Mengatur nama ruang pertemuan dan fasilitas penunjang.</li>
+            <li><strong>Lokasi & Status:</strong> Mengatur lokasi penempatan fisik dan label status (Tersedia, Dipinjam, Rusak, Habis).</li>
+        </ul>
+
+        <h4>3.3 Modul Peminjaman & Pengembalian Aset</h4>
+        <ol>
+            <li>Pilih menu <strong>Peminjaman Aset</strong> lalu klik <strong>+ Catat Peminjaman Baru</strong>.</li>
+            <li>Isi nama penanggung jawab (PIC), divisi kerja, pilih barang yang tersedia, tanggal pinjam, dan estimasi tanggal kembali.</li>
+            <li>Klik <strong>Konfirmasi Peminjaman</strong>. Stok aset di sistem akan otomatis berkurang.</li>
+            <li>Saat barang dikembalikan oleh PIC, cukup klik tombol <strong>🔄 Kembalikan</strong> pada baris tabel peminjaman. Sistem otomatis mengembalikan stok ke gudang.</li>
+        </ol>
+
+        <h4>3.4 Modul Reservasi Ruang Rapat (Anti-Bentrok)</h4>
+        <p>Sistem memiliki mekanisme cerdas <em>Collision Detection</em>. Ketika pengguna memilih ruangan, tanggal mulai, dan jam selesai, sistem langsung memvalidasi apakah jadwal tersebut bertabrakan dengan rapat lain yang sudah disetujui. Jika bentrok, sistem akan memberikan peringatan dan menolak reservasi ganda.</p>
+
+        <h4>3.5 Modul Stock Opname (Audit Berkala)</h4>
+        <p>Digunakan untuk audit fisik stok gudang secara periodik:</p>
+        <ol>
+            <li>Buka menu <strong>Stock Opname</strong>.</li>
+            <li>Pilih barang yang disurvei, klik <strong>⚖️ Sesuaikan Stok</strong>.</li>
+            <li>Masukkan jumlah fisik riil hasil audit beserta catatan alasan selisih.</li>
+            <li>Klik simpan. Jika stok menjadi 0, status otomatis berubah menjadi "Habis".</li>
+        </ol>
+
+        <h4>3.6 Pelaporan, Ekspor Excel & Cetak Dokumen</h4>
+        <ul>
+            <li><strong>Ekspor Excel:</strong> Klik tombol <strong>📥 Export Excel</strong> untuk mengunduh laporan rekapitulasi berformat <code>.xlsx</code>.</li>
+            <li><strong>Cetak Dokumen Resmi (PDF):</strong> Klik tombol <strong>🖨️ Cetak Fisik</strong> untuk membuka pratinjau surat resmi yang dilengkapi Kop Perusahaan, tanggal cetak, dan tanda tangan Mengetahui (GA/IT) serta Petugas.</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <h3>BAB IV: PEMELIHARAAN & PENAMBAHAN KEBUTUHAN KANTOR</h3>
+        <p>Aplikasi ini dirancang modular sehingga memudahkan penambahan fitur baru di masa depan (<em>Future Enhancements</em>):</p>
+        <ul>
+            <li><strong>Barcode Scanner Kamera HP:</strong> Pindai QR/Barcode langsung lewat kamera smartphone staf saat serah terima barang.</li>
+            <li><strong>WhatsApp / Email Notification Gateway:</strong> Notifikasi pengingat otomatis sebelum batas waktu peminjaman barang berakhir.</li>
+            <li><strong>Single Sign-On (Active Directory / Google Workspace):</strong> Integrasi login menggunakan akun email resmi perusahaan.</li>
+            <li><strong>Multi-Branch:</strong> Pengelolaan inventaris untuk kantor yang memiliki lebih dari satu gedung/cabang.</li>
+        </ul>
+    </div>
+
+</body>
+</html>

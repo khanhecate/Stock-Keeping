@@ -19,3 +19,14 @@ nbdist/
 .nb-gradle/
 nbactions.xml
 nb-configuration.xml
+
+# IDE & Logs
+.vscode/
+hs_err_pid*.log
+*.log
+
+# Node.js / Web App
+node_modules/
+.env
+.env.local
+.env.*.local

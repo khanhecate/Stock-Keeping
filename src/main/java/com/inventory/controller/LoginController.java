@@ -34,27 +34,32 @@ public class LoginController {
             return;
         }
 
-        User user = userDao.login(username, password);
+        try {
+            User user = userDao.login(username, password);
 
-        if (user != null) {
-            lblError.setVisible(false);
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainDashboard.fxml"));
-                Parent root = loader.load();
-                
-                Stage stage = (Stage) btnLogin.getScene().getWindow(); 
-                stage.setScene(new Scene(root)); 
-                stage.setTitle("Inventory Management IJI - Dashboard");
-                stage.centerOnScreen(); 
-                
-            } catch (IOException e) {
-                e.printStackTrace();
-                lblError.setText("Error memuat halaman Dashboard!");
+            if (user != null) {
+                lblError.setVisible(false);
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainDashboard.fxml"));
+                    Parent root = loader.load();
+                    
+                    Stage stage = (Stage) btnLogin.getScene().getWindow(); 
+                    stage.setScene(new Scene(root)); 
+                    stage.setTitle("Inventory Management - Dashboard");
+                    stage.centerOnScreen(); 
+                    
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    lblError.setText("Error memuat halaman Dashboard!");
+                    lblError.setVisible(true);
+                }
+            } else {
+                // JIKA GAGAL: Munculkan teks merah
+                lblError.setText("Username atau Password salah!");
                 lblError.setVisible(true);
             }
-        } else {
-            // JIKA GAGAL: Munculkan teks merah
-            lblError.setText("Username atau Password salah!");
+        } catch (RuntimeException re) {
+            lblError.setText(re.getMessage());
             lblError.setVisible(true);
         }
     }

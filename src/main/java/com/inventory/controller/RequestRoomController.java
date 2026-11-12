@@ -71,6 +71,12 @@ public class RequestRoomController {
         booking.setPurpose(txtPurpose.getText() != null ? txtPurpose.getText() : "");
         booking.setStatus("Approved");
 
+        if (!bookingDao.isRoomAvailable(booking.getRoomId(), startDateTime, endDateTime)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Ruangan sudah dibooking pada jam tersebut!");
+            alert.showAndWait();
+            return;
+        }
+
         if (bookingDao.insert(booking)) { 
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Booking Ruangan berhasil diajukan dan disetujui!");
             alert.showAndWait();

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="ReportLoan" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="237147f3-b9d5-4185-b136-a411bb2b9515">
+    
+    <field name="picName" class="java.lang.String"/>
+    <field name="division" class="java.lang.String"/>
+    <field name="assetDisplay" class="java.lang.String"/>
+    <field name="location" class="java.lang.String"/>
+    <field name="loanDate" class="java.lang.String"/>
+    <field name="returnDate" class="java.lang.String"/>
+    <field name="status" class="java.lang.String"/>
+    <field name="quantity" class="java.lang.Integer"/>
+    
+    <title>
+        <band height="50" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="802" height="30" uuid="d675fe2a-a2d7-404e-a727-f9fda01e641f"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Laporan Peminjaman Aset / ATK]]></text>
+            </staticText>
+        </band>
+    </title>
+    
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="120" height="30" uuid="72511fd7-3bd8-470f-ab29-dbc928ba456d"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Nama PIC]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="120" y="0" width="100" height="30" uuid="b8a214a9-450d-459b-b702-2c2f4a77cc59"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Divisi]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="220" y="0" width="162" height="30" uuid="a74d9510-99ee-4f30-9b22-1ba38511c15c"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Asset]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="382" y="0" width="100" height="30" uuid="819b645f-008a-4cdd-86d5-fadaf916df4a"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Lokasi]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="482" y="0" width="40" height="30" uuid="eccab49b-e36b-4491-8e74-55b144713456"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Qty]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="522" y="0" width="100" height="30" uuid="56f7ced9-a5af-45c0-a567-3553f24e8a3b"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Tgl Pinjam]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="622" y="0" width="100" height="30" uuid="3319f08b-f0ff-4f88-a1ef-aedfbd0829f7"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Tgl Kembali]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="722" y="0" width="80" height="30" uuid="0922ac33-b26a-4795-a8d4-6882646d71da"/>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Status]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    
+    <detail>
+        <band height="20" splitType="Stretch">
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="120" height="20" uuid="251ee03a-f7c5-4c74-abd2-498dbc82b879"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textFieldExpression><![CDATA[$F{picName}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="120" y="0" width="100" height="20" uuid="17e46816-aab1-42e3-9662-2d980e0d0ccd"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textFieldExpression><![CDATA[$F{division}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="220" y="0" width="162" height="20" uuid="4eb7e03e-c5a4-4007-aaab-abcd313278bb"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textFieldExpression><![CDATA[$F{assetDisplay}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="382" y="0" width="100" height="20" uuid="1005d2dd-af5b-4686-97eb-14c4ce1f2bc2"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="482" y="0" width="40" height="20" uuid="1dfb16f3-e5a9-4c66-a84b-a8a5675b41a7"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="522" y="0" width="100" height="20" uuid="842f48be-41e4-4352-bcde-a35403333b3c"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textFieldExpression><![CDATA[$F{loanDate}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="622" y="0" width="100" height="20" uuid="4d36cd76-d992-45f9-991d-2f9e805cf745"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textFieldExpression><![CDATA[$F{returnDate}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement stretchType="RelativeToTallestObject" x="722" y="0" width="80" height="20" uuid="48121602-a52d-41ee-8ad4-18f918d927ed"/>
+                <box padding="3"><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

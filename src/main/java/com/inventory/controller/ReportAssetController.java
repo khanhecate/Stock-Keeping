@@ -137,4 +137,31 @@ public class ReportAssetController {
             }
         }
     }
+
+    @FXML
+    private void handlePrintReport() {
+        if (tableOutbound.getItems().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Tidak ada data untuk dicetak!");
+            alert.showAndWait();
+            return;
+        }
+
+        try {
+            java.io.InputStream reportStream = getClass().getResourceAsStream("/reports/ReportAsset.jrxml");
+            if (reportStream == null) {
+                throw new Exception("File template laporan tidak ditemukan di /reports/ReportAsset.jrxml!");
+            }
+            net.sf.jasperreports.engine.JasperReport jasperReport = net.sf.jasperreports.engine.JasperCompileManager.compileReport(reportStream);
+            net.sf.jasperreports.engine.data.JRBeanCollectionDataSource dataSource = new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(tableOutbound.getItems());
+            java.util.Map<String, Object> parameters = new java.util.HashMap<>();
+            
+            net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+            net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Gagal mencetak laporan: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
 }
