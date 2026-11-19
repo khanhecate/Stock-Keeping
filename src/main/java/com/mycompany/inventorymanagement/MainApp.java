@@ -24,7 +24,7 @@ public class MainApp extends Application {
         
         Scene scene = new Scene(root);
         
-        stage.setTitle("Login - Inventory");
+        stage.setTitle("Login - StockKeeping");
         stage.setScene(scene);
         stage.setResizable(true); 
         stage.setMinWidth(1050);

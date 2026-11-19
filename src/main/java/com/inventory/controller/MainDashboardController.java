@@ -214,7 +214,7 @@ public class MainDashboardController {
                 Parent root = loader.load();
                 
                 Stage loginStage = new Stage();
-                loginStage.setTitle("Login - Inventory IJI");
+                loginStage.setTitle("Login - StockKeeping");
                 loginStage.setScene(new Scene(root));
                 loginStage.centerOnScreen();
                 loginStage.setResizable(false);

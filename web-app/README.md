@@ -1,63 +1,52 @@
-# Sistem Manajemen Inventaris & Ruang Rapat Kantor (Versi Web)
+# StockKeeping (Versi Web)
 
-Aplikasi web modern untuk manajemen inventaris kantor, sirkulasi peminjaman aset, pengeluaran barang habis pakai (ATK), dan pemesanan ruang rapat terintegrasi tanpa bentrok jadwal.
+Antarmuka web untuk manajemen inventaris kantor, peminjaman aset, barang keluar, dan booking ruang rapat. Memakai database yang sama dengan aplikasi desktop.
 
----
+Instalasi lengkap (macOS, Linux, Windows), konfigurasi, dan perbandingan fitur Web vs Desktop ada di [README utama](../README.md).
 
-## 🚀 Fitur Utama
-1. **Dashboard Metrik Real-Time:** Total aset, stok fisik, aset sedang dipinjam, agenda rapat hari ini.
-2. **Master Data Lengkap:**
-   - Data Aset / Barang (Auto-generate Barcode `AST-YYYY-XXX`)
-   - Kategori (Klasifikasi `ASET` vs `CONSUMABLE`)
-   - Ruang Rapat & Fasilitas
-   - Lokasi Penyimpanan (Gudang, Lantai, Ruang Server)
-   - Status & Rekanan Supplier / Vendor
-3. **Sirkulasi & Transaksi:**
-   - Peminjaman Aset (Deduct stok otomatis & validasi ketersediaan)
-   - Pengembalian 1-Klik (Restorasi stok kembali ke gudang)
-   - Pengeluaran Barang Habis Pakai (Outbound)
-   - Reservasi Ruang Rapat dengan **Pendeteksi Bentrok Jadwal Otomatis (Collision Detection)**
-   - Stock Opname (Audit stok riil vs sistem & penyesuaian terkontrol)
-4. **Laporan & Ekspor:**
-   - Ekspor data ke Microsoft Excel (`.xlsx`)
-   - Pratinjau Cetak Fisik / PDF resmi berformat Kop Surat & tanda tangan pejabat terkait.
-5. **Dukungan Presentasi & Dokumentasi:**
-   - Slide Presentasi Interaktif (`Presentation_Slides.html`)
-   - File Asli PowerPoint (`Presentasi_Sistem_Inventaris_Kantor.pptx`)
-   - Buku Panduan Pengguna (`Manual_Book_Web.html`)
+## Fitur
+- Dashboard: total aset, total stok, pinjaman aktif, booking hari ini, stok menipis, pinjaman dan booking terbaru, stok per kategori.
+- Master data: aset (barcode otomatis `AST-YYYY-XXX`), kategori, ruang rapat, lokasi, status, supplier.
+- Peminjaman dan pengembalian aset dengan pengurangan dan pengembalian stok otomatis.
+- Barang keluar (barang habis pakai).
+- Booking ruang rapat dengan pengecekan bentrok jadwal dan persetujuan (`Pending`, `Approved`, `Rejected`).
+- Stock opname.
+- Manajemen user dan hak akses per divisi.
+- Ekspor Excel (aset/stok, peminjaman, booking) dan pratinjau cetak dengan kolom tanda tangan.
+- Mode gelap dan terang.
 
----
+## Menjalankan
 
-## 💻 Panduan Instalasi & Menjalankan di Server Kantor
-
-### 1. Database MySQL
-- Nyalakan service **MySQL** (misal lewat XAMPP).
-- Import file skema: `web-app/database/schema.sql` ke MySQL.
-
-### 2. Konfigurasi Lingkungan (.env)
-Buka file `web-app/.env` dan sesuaikan koneksi database kantor:
-```env
-PORT=3000
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=
-DB_NAME=inventory_db
-```
-
-### 3. Menjalankan Aplikasi
-Buka Command Prompt atau PowerShell di dalam folder `web-app`:
 ```bash
+cd web-app
+cp .env.example .env     # Windows: copy .env.example .env
+npm install
 npm start
 ```
 
-### 4. Mengakses Aplikasi
-- **Dari komputer server:** [http://localhost:3000](http://localhost:3000)
-- **Dari komputer staf di jaringan Wi-Fi / LAN kantor:** `http://[IP-Komputer-Server]:3000` (contoh: `http://192.168.1.15:3000`)
+Isi `DB_USER` dan `DB_PASSWORD` di `.env`. Impor database sekali: `mysql -u root -p < database/schema.sql`.
 
----
+- Lokal: <http://localhost:3000>
+- Dari komputer lain di LAN: `http://IP-KOMPUTER-SERVER:3000`
 
-## 📊 File Presentasi & Panduan
-- **Slide Presentasi Interaktif di Browser:** Buka [http://localhost:3000/Presentation_Slides.html](http://localhost:3000/Presentation_Slides.html) (tekan F11 untuk fullscreen).
-- **File PowerPoint (.pptx):** Berada di root folder project: `Presentasi_Sistem_Inventaris_Kantor.pptx`.
-- **Buku Panduan (Manual Book):** Buka [http://localhost:3000/Manual_Book_Web.html](http://localhost:3000/Manual_Book_Web.html) atau klik tombol cetak ke PDF.
+Login awal: `admin` / `admin123`. Ganti sebelum dipakai di luar uji coba.
+
+## Struktur
+
+| Folder | Isi |
+|---|---|
+| `server.js` | Entry point Express |
+| `routes/api.js` | Daftar endpoint `/api/*` |
+| `controllers/` | Logika tiap modul |
+| `config/database.js` | Koneksi dan inisialisasi DB |
+| `public/` | Frontend (HTML, CSS, JS) |
+| `database/schema.sql` | Skema dan data awal |
+| `database/migrations/` | Migrasi untuk database yang sudah ada |
+| `scripts/` | Pembuat presentasi `.pptx` (`npm run generate-ppt`) |
+
+## Peringatan
+API belum memakai autentikasi di sisi server dan password disimpan polos. Jangan buka ke jaringan yang tidak dipercaya. Detail di [README utama](../README.md#catatan-keamanan).
+
+## Dokumen
+- Buku panduan web: `../Manual_Book_Web.html` (buka langsung sebagai file).
+- Dokumen KKP dan presentasi: `../BERKAS_KKP_DAN_PANDUAN/`.

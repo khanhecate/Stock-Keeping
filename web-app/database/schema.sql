@@ -16,6 +16,15 @@ CREATE TABLE IF NOT EXISTS departments (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+-- 1b. Table: access_roles (Hak akses per divisi, dipakai Web; Desktop memakai users.role)
+CREATE TABLE IF NOT EXISTS access_roles (
+    access_id INT AUTO_INCREMENT PRIMARY KEY,
+    divisi VARCHAR(100) NOT NULL,
+    level VARCHAR(50) NOT NULL DEFAULT 'Staff',
+    permissions LONGTEXT,
+    is_deleted TINYINT(1) NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 -- 2. Table: users
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,6 +33,9 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(100) NOT NULL,
     department_id INT DEFAULT NULL,
     role VARCHAR(50) NOT NULL DEFAULT 'Staff',
+    access_id INT DEFAULT NULL,
+    divisi VARCHAR(100) DEFAULT NULL,
+    level VARCHAR(50) DEFAULT NULL,
     is_active TINYINT(1) NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (department_id) REFERENCES departments(department_id) ON DELETE SET NULL
@@ -265,3 +277,23 @@ INSERT INTO assets (asset_id, barcode_code, name, category_id, supplier_id, loca
 (3, 'AST-2026-003', 'Kertas HVS A4 80gr PaperOne', 3, 2, 1, '1 Rim (500 Lembar) Warna Putih', 'Tersedia', 35, 'rim'),
 (4, 'AST-2026-004', 'Kursi Kerja Ergonomis Mesh', 2, 2, 3, 'Tinggi bisa diatur, Lumbar support', 'Tersedia', 12, 'unit')
 ON DUPLICATE KEY UPDATE name=VALUES(name);
+
+-- Seed access_roles dan hubungkan user seed (sumber: migrations/002_unify_access_roles.sql)
+INSERT IGNORE INTO access_roles (access_id, divisi, level, permissions, is_deleted) VALUES
+(1, 'Information Technology', 'Administrator', '["menu_dashboard","menu_master","menu_transaksi","menu_laporan","menu_akses","sub_asset","sub_category","sub_room","sub_location","sub_status","sub_supplier","sub_loan","sub_outbound","sub_booking","sub_stock_opname","sub_report_history","sub_report_loan","sub_report_booking","sub_user_list","sub_access_list"]', 0),
+(2, 'HR & GA', 'Staff', '["menu_dashboard","menu_master","menu_transaksi","menu_laporan","sub_asset","sub_category","sub_room","sub_location","sub_status","sub_supplier","sub_loan","sub_outbound","sub_booking","sub_stock_opname","sub_report_history","sub_report_loan","sub_report_booking"]', 0),
+(3, 'Operasional', 'Staff', '["menu_dashboard","menu_transaksi","sub_loan","sub_booking"]', 0),
+(4, 'Accounting, FI & MIS', 'Staff', '["menu_dashboard","menu_master","menu_laporan","sub_asset","sub_category","sub_report_history","sub_report_loan"]', 0),
+(5, 'Dewan Komisaris', 'Staff', '["menu_dashboard","menu_laporan","sub_report_history","sub_report_loan","sub_report_booking"]', 0),
+(6, 'Direktur Utama', 'Staff', '["menu_dashboard","menu_transaksi","menu_laporan","sub_booking","sub_report_history","sub_report_loan","sub_report_booking"]', 0),
+(7, 'Audit Intern', 'Staff', '["menu_dashboard","menu_transaksi","menu_laporan","sub_stock_opname","sub_report_history","sub_report_loan"]', 0),
+(8, 'Collection & Remedial', 'Staff', '["menu_dashboard","menu_transaksi","sub_booking"]', 0),
+(9, 'Kepatuhan & Manajemen Risiko', 'Staff', '["menu_dashboard","menu_laporan","sub_report_history"]', 0),
+(10, 'Marketing Funding', 'Staff', '["menu_dashboard","menu_transaksi","sub_booking"]', 0);
+
+-- Hubungkan user seed ke access_roles (hanya yang belum terhubung)
+UPDATE users u JOIN access_roles a ON a.access_id = 1 SET u.access_id=a.access_id, u.divisi=a.divisi, u.level=a.level WHERE u.username='admin' AND u.access_id IS NULL;
+UPDATE users u JOIN access_roles a ON a.access_id = 2 SET u.access_id=a.access_id, u.divisi=a.divisi, u.level=a.level WHERE u.username='staff_ga' AND u.access_id IS NULL;
+UPDATE users u JOIN access_roles a ON a.access_id = 3 SET u.access_id=a.access_id, u.divisi=a.divisi, u.level=a.level WHERE u.username='staff_opr' AND u.access_id IS NULL;
+-- Sinkronkan users.role (dibaca desktop) dengan level (dipakai web)
+UPDATE users SET role = level WHERE level IS NOT NULL AND role <> level;

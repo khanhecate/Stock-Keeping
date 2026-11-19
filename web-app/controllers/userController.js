@@ -97,10 +97,10 @@ async function createUser(req, res) {
             }
 
             const sql = `
-                INSERT INTO users (username, password, name, access_id, divisi, level, is_active, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+                INSERT INTO users (username, password, name, access_id, divisi, level, role, is_active, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
             `;
-            const [result] = await pool.query(sql, [username, password, name, accessId, divisi, level, active]);
+            const [result] = await pool.query(sql, [username, password, name, accessId, divisi, level, level, active]);
             return res.json({ success: true, message: 'User berhasil didaftarkan!', id: result.insertId });
         } else {
             if (mockUsersList.some(u => u.username === username)) {
@@ -153,13 +153,13 @@ async function updateUser(req, res) {
 
             if (password && password.trim() !== '') {
                 await pool.query(
-                    'UPDATE users SET name = ?, access_id = ?, divisi = ?, level = ?, is_active = ?, password = ? WHERE user_id = ?',
-                    [name, accessId, divisi, level, active, password, id]
+                    'UPDATE users SET name = ?, access_id = ?, divisi = ?, level = ?, role = ?, is_active = ?, password = ? WHERE user_id = ?',
+                    [name, accessId, divisi, level, level, active, password, id]
                 );
             } else {
                 await pool.query(
-                    'UPDATE users SET name = ?, access_id = ?, divisi = ?, level = ?, is_active = ? WHERE user_id = ?',
-                    [name, accessId, divisi, level, active, id]
+                    'UPDATE users SET name = ?, access_id = ?, divisi = ?, level = ?, role = ?, is_active = ? WHERE user_id = ?',
+                    [name, accessId, divisi, level, level, active, id]
                 );
             }
             return res.json({ success: true, message: 'Data user berhasil diperbarui!' });

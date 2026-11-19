@@ -47,7 +47,7 @@ function getLocalIpAddresses() {
 // Start server
 app.listen(PORT, async () => {
     console.log('==========================================================');
-    console.log('   SISTEM MANAJEMEN INVENTARIS & RUANGAN KANTOR (WEB)     ');
+    console.log('   STOCKKEEPING (WEB)                                    ');
     console.log('==========================================================');
     console.log(`[Server] Berjalan di port : ${PORT}`);
     console.log(`[Server] Akses Lokal      : http://localhost:${PORT}`);

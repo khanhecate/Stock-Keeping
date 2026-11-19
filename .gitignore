@@ -30,3 +30,8 @@ node_modules/
 .env
 .env.local
 .env.*.local
+
+# Lokal / dihasilkan tool
+scripts/.env.local
+*.bak
+graphify-out/

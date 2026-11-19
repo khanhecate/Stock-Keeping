@@ -276,7 +276,7 @@ async function updateAccess(req, res) {
             );
 
             // Also update any denormalized divisi/level in users table if needed
-            await pool.query('UPDATE users SET divisi = ?, level = ? WHERE access_id = ?', [divisi, level, id]);
+            await pool.query('UPDATE users SET divisi = ?, level = ?, role = ? WHERE access_id = ?', [divisi, level, level, id]);
 
             return res.json({ success: true, message: 'Pengaturan akses berhasil diperbarui!' });
         } else {
